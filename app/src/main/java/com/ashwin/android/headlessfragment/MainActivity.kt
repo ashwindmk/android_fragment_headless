@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
 
 private const val SUB_TAG = "MainActivity"
 
@@ -26,13 +27,18 @@ class MainActivity : AppCompatActivity() {
         println("${Constant.APP_TAG}: $SUB_TAG: counterFragment = $counterFragment")
 
         val textView = findViewById<TextView>(R.id.textView)
-        counterFragment.counterLiveData.observe(this, {
+        counterFragment.counterLiveData.observe(this, Observer<Int> { it
             textView.text = it.toString()
         })
 
         val fetchButton = findViewById<Button>(R.id.fetch_button)
         fetchButton.setOnClickListener {
             counterFragment.fetch()
+        }
+
+        val cancelButton = findViewById<Button>(R.id.cancel_button)
+        cancelButton.setOnClickListener {
+            // TODO
         }
     }
 
